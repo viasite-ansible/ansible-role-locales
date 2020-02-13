@@ -15,7 +15,7 @@
     state: "{{ apt_install_state | default('latest') }}"
   with_items: "{{ locales_language_packs_present }}"
   when: ansible_distribution == 'Ubuntu'
-  register: _locales_install_lang_packs
+  #notify: update locales
   tags: [configuration, locales, locales-language-packs-present]
 
 - name: remove (specified) language packs
@@ -24,7 +24,7 @@
     state: absent
   with_items: "{{ locales_language_packs_absent }}"
   when: ansible_distribution == 'Ubuntu'
-  register: _locales_remove_lang_packs
+  #notify: update locales
   tags: [configuration, locales, locales-language-packs-absent]
 
 - name: detect locale gen file
@@ -53,11 +53,6 @@
     state: absent
   with_items: "{{ locales_absent }}"
   tags: [configuration, locales, locales-absent]
-
-- name: update locales
-  command: dpkg-reconfigure --frontend noninteractive locales
-  when: _locales_install_lang_packs|changed or _locales_remove_lang_packs|changed
-  tags: [configuration, locales, locales-update, skip_ansible_lint]
 
 - name: set default locale
   template:
