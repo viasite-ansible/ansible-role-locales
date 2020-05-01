@@ -1,0 +1,21 @@
+---
+driver:
+  name: docker
+
+platforms:
+  - name: ansible-role-locales-1604
+    image: geerlingguy/docker-ubuntu1604-ansible
+    pre_build_image: true
+
+  - name: ansible-role-locales-1804
+    image: geerlingguy/docker-ubuntu1804-ansible
+    pre_build_image: true
+
+  - name: ansible-role-locales-2004
+    image: geerlingguy/docker-ubuntu2004-ansible
+    pre_build_image: true
+
+provisioner:
+  name: ansible
+  options:
+    vvv: true
