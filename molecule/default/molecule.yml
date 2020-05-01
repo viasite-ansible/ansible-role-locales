@@ -17,5 +17,3 @@ platforms:
 
 provisioner:
   name: ansible
-  options:
-    vvv: true
